@@ -1,5 +1,6 @@
-import React from "react";
-function Request(props) {
+import Competitions from "./MainContent/Competitions/Competitions";
+
+function request(props) {
   fetch("http://api.football-data.org/v2/competitions/", {
     method: "GET",
     mode: "cors",
@@ -11,8 +12,12 @@ function Request(props) {
       return res.json();
     })
     .then((response) => {
-      console.log(response.competitions);
+      return response.competitions;
+    })
+    .then((competitions) => {
+      for (let i = 0; i < 10; i++) {
+        console.log(competitions[i]);
+      }
     });
-  return <p>qwerty</p>;
 }
-export default Request;
+export default request;
