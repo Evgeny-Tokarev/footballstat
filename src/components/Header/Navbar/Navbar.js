@@ -1,22 +1,17 @@
 import React from "react";
+import { Button, ButtonGroup } from "@material-ui/core";
+
 function Navbar() {
   return (
-    <div>
-      <ul>
-        <li>
-          <a href="/">Competitions</a>
-        </li>
-        <li>
-          <a href="/teams">Teams</a>
-        </li>
-        <li>
-          <a href="/matches">Matches</a>
-        </li>
-        <li>
-          <a href="/team">Team</a>
-        </li>
-      </ul>
-    </div>
+    <ButtonGroup variant="contained">
+      <Button href="/">Competitions</Button>
+
+      <Button href="/teams">Teams</Button>
+
+      <Button href="/matches">Matches</Button>
+
+      <Button href="/team">Team</Button>
+    </ButtonGroup>
   );
 }
 export default Navbar;

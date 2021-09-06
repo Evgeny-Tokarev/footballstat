@@ -1,0 +1,13 @@
+* {
+  justify-content: center;
+  text-align: center;
+}
+body {
+  padding: 2rem 0;
+  background: linear-gradient(
+      270deg,
+      rgba(256, 256, 256, 0.7),
+      rgba(256, 256, 256, 0.7)
+    ),
+    fixed url(./images/main-bg.jpg) no-repeat 50% 100%;
+}
