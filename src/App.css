@@ -2,7 +2,7 @@
   justify-content: center;
   text-align: center;
 }
-body {
+#root {
   padding: 2rem 0;
   background: linear-gradient(
       270deg,
