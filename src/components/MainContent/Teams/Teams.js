@@ -8,6 +8,8 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { CardActionArea, Typography } from "@material-ui/core";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+
 function Teams() {
   const useStyles = makeStyles({
     table: {
@@ -93,7 +95,9 @@ function Teams() {
               {items.map((item) => (
                 <TableRow key={item.id}>
                   <TableCell component="th" scope="row">
-                    {item.name}
+                    <Link to={`/Team/${item.id}`} params={{ id: item.id }}>
+                      {item.name}
+                    </Link>
                   </TableCell>
                   <TableCell align="right">
                     <img

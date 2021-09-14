@@ -23,9 +23,6 @@ function Competitions(props) {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
-  function rowSetter(e) {
-    props.handler(e.target.parentNode.id);
-  }
   useEffect(() => {
     fetch(`http://api.football-data.org/v2/areas`, {
       method: "GET",

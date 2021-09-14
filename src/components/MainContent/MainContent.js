@@ -20,7 +20,7 @@ function MainContent(props) {
           <Route path="/matches/:id">
             <Matches />
           </Route>
-          <Route path="/team">
+          <Route path="/team/:id">
             <Team />
           </Route>
         </Switch>

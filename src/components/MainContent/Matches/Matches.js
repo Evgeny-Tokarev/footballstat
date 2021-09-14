@@ -35,7 +35,6 @@ function Matches(props) {
       },
     })
       .then((res) => {
-        debugger;
         if (res.status === 200) {
           return res.json();
         } else {
