@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
+import Search from "../Search";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
@@ -8,7 +9,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { Typography } from "@material-ui/core";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Competitions(props) {
   const useStyles = makeStyles({
@@ -18,11 +19,16 @@ function Competitions(props) {
     block: {
       marginTop: "2rem",
     },
+    grey: {
+      backgroundColor: "#e5e3e3",
+    },
   });
   const classes = useStyles();
   const [error, setError] = useState(null);
+  const [found, setFound] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
+
   useEffect(() => {
     fetch(`http://api.football-data.org/v2/areas`, {
       method: "GET",
@@ -66,6 +72,7 @@ function Competitions(props) {
   } else if (!isLoaded) {
     return <div>Загрузка...</div>;
   } else {
+    let names = items.map((item) => item.name);
     return (
       <div className={classes.block}>
         <Typography
@@ -77,6 +84,7 @@ function Competitions(props) {
         >
           Competitions
         </Typography>
+        <Search names={names} findRow={setFound} />
         <TableContainer component={Paper}>
           <Table
             className={classes.table}
@@ -93,8 +101,12 @@ function Competitions(props) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {items.map((item) => (
-                <TableRow key={item.id} id={item.id}>
+              {items.map((item, index) => (
+                <TableRow
+                  key={item.id}
+                  id={item.id}
+                  className={index === found ? classes.grey : ""}
+                >
                   <TableCell component="th" scope="row">
                     <Link to={`/Matches/${item.id}`} params={{ id: item.id }}>
                       {item.name}
