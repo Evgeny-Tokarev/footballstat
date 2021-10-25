@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Button } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import Box from "@material-ui/core/Box";
+import search from "./search.svg";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,7 +26,7 @@ function Search(props) {
 
     props.findRow(
       props.names.findIndex((name) => {
-        return name.includes(competition);
+        return name.toUpperCase().includes(competition.toUpperCase());
       })
     );
   }
@@ -44,7 +45,7 @@ function Search(props) {
         value={competition}
       />
       <Button type="submit" variant="contained" size="large">
-        <img src="../../search.svg" alt="" />
+        <img src={search} width="20" height="20" alt={"Search"} />
       </Button>
     </Box>
   );

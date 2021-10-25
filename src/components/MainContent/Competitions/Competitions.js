@@ -72,7 +72,15 @@ function Competitions(props) {
   } else if (!isLoaded) {
     return <div>Загрузка...</div>;
   } else {
-    let names = items.map((item) => item.name);
+    const names = items.map((item) => item.name);
+
+    const refs = items.reduce((acc, value) => {
+      acc[value.id] = React.createRef();
+      return acc;
+    }, {});
+    if (found) {
+      console.log(found);
+    }
     return (
       <div className={classes.block}>
         <Typography
@@ -105,6 +113,7 @@ function Competitions(props) {
                 <TableRow
                   key={item.id}
                   id={item.id}
+                  ref={refs[item.id]}
                   className={index === found ? classes.grey : ""}
                 >
                   <TableCell component="th" scope="row">
