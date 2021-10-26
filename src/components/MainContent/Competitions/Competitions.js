@@ -67,20 +67,26 @@ function Competitions(props) {
         }
       );
   }, []);
+  const refs = items.reduce((acc, value) => {
+    acc[value.id] = React.createRef();
+    return acc;
+  }, {});
+
+  useEffect(() => {
+    if (found) {
+      console.log("ref   " + refs[items[found].id].current);
+      refs[items[found].id].current.scrollIntoView();
+    }
+  }, [found]);
   if (error) {
     return <div>Ошибка: {error.message}</div>;
   } else if (!isLoaded) {
     return <div>Загрузка...</div>;
   } else {
     const names = items.map((item) => item.name);
-
-    const refs = items.reduce((acc, value) => {
-      acc[value.id] = React.createRef();
-      return acc;
-    }, {});
-    if (found) {
-      console.log(found);
-    }
+    console.log(items);
+    console.log(refs);
+    console.log(found);
     return (
       <div className={classes.block}>
         <Typography
