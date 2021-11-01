@@ -7,8 +7,9 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import { CardActionArea, Typography } from "@material-ui/core";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { Typography } from "@material-ui/core";
+import { BrowserRouter as Link } from "react-router-dom";
+import Image from "../Image";
 
 function Teams() {
   const useStyles = makeStyles({
@@ -23,6 +24,7 @@ function Teams() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
+
   useEffect(() => {
     fetch(`http://api.football-data.org/v2/areas`, {
       method: "GET",
@@ -100,11 +102,12 @@ function Teams() {
                     </Link>
                   </TableCell>
                   <TableCell align="right">
-                    <img
+                    <Image
+                      src={item.crestUrl}
+                      srcOnError={"/images/question.svg"}
                       width="30px"
                       heght="30px"
-                      src={item.crestUrl}
-                      alt="No image"
+                      alt="Team crest"
                     />
                   </TableCell>
                   <TableCell align="right">{item.area.name}</TableCell>

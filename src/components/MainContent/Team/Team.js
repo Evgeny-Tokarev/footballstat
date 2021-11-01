@@ -80,7 +80,7 @@ function Team() {
           setError(error);
         }
       );
-  }, []);
+  }, [id]);
 
   if (error) {
     return <div>Ошибка: {error.message}</div>;
@@ -113,7 +113,7 @@ function Team() {
           >
             {team.name}
           </Typography>
-          <img width="50px" heght="50px" src={team.crestUrl} alt="No image" />
+          <img width="50px" heght="50px" src={team.crestUrl} alt="Team crest" />
           <TableContainer component={Paper}>
             <Table
               className={classes.table}

@@ -58,7 +58,7 @@ function Matches(props) {
           setError(error);
         }
       );
-  }, []);
+  }, [id]);
 
   if (error) {
     return <div>Ошибка: {error.message}</div>;

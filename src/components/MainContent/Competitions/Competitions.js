@@ -10,8 +10,10 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import Image from "../Image";
 
 function Competitions(props) {
+  console.log(Math.random(5));
   const useStyles = makeStyles({
     table: {
       minWidth: 650,
@@ -22,14 +24,24 @@ function Competitions(props) {
     grey: {
       backgroundColor: "#e5e3e3",
     },
+    centered: {
+      verticalAlign: "middle",
+      marginRight: "1rem",
+    },
+    myLink: {
+      textDecoration: "none",
+      color: "#666",
+    },
   });
   const classes = useStyles();
   const [error, setError] = useState(null);
+  const [status, setStatus] = useState(null);
   const [found, setFound] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
 
   useEffect(() => {
+    console.log("effect 1");
     fetch(`http://api.football-data.org/v2/areas`, {
       method: "GET",
       mode: "cors",
@@ -37,7 +49,11 @@ function Competitions(props) {
         "X-Auth-Token": process.env.REACT_APP_API_KEY,
       },
     })
-      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+        setStatus(res.status);
+        return res.json();
+      })
       .then(
         (result) => {
           let europeAreas = result.areas.filter(
@@ -55,10 +71,19 @@ function Competitions(props) {
               },
             }
           )
-            .then((res) => res.json())
-            .then((result) => {
-              setItems(result.competitions);
-            });
+            .then((res) => {
+              setStatus(res.status);
+              return res.json();
+            })
+            .then(
+              (result) => {
+                setItems(result.competitions);
+              },
+              (error) => {
+                setIsLoaded(true);
+                setError(error);
+              }
+            );
           setIsLoaded(true);
         },
         (error) => {
@@ -73,20 +98,27 @@ function Competitions(props) {
   }, {});
 
   useEffect(() => {
-    if (found) {
-      console.log("ref   " + refs[items[found].id].current);
-      refs[items[found].id].current.scrollIntoView();
+    if (found && found !== -1) {
+      refs[items[found].id].current.scrollIntoView({
+        block: "center",
+        behavior: "smooth",
+      });
     }
-  }, [found]);
+  }, [found, refs, items]);
   if (error) {
-    return <div>Ошибка: {error.message}</div>;
+    console.log("error 1");
+    if (status === 429) return <div>Повторите позже</div>;
+    return (
+      <div>
+        Ошибка: {error.message} {status}
+      </div>
+    );
   } else if (!isLoaded) {
     return <div>Загрузка...</div>;
   } else {
     const names = items.map((item) => item.name);
-    console.log(items);
-    console.log(refs);
-    console.log(found);
+    const now = new Date();
+    console.log(now);
     return (
       <div className={classes.block}>
         <Typography
@@ -108,8 +140,8 @@ function Competitions(props) {
             <TableHead>
               <TableRow>
                 <TableCell>Competition</TableCell>
-                <TableCell align="right">Start date</TableCell>
-                <TableCell align="right">End date</TableCell>
+                <TableCell align="left">Country</TableCell>
+                <TableCell align="left">State</TableCell>
                 <TableCell align="right">Area</TableCell>
                 <TableCell align="right">Match day</TableCell>
               </TableRow>
@@ -123,14 +155,24 @@ function Competitions(props) {
                   className={index === found ? classes.grey : ""}
                 >
                   <TableCell component="th" scope="row">
-                    <Link to={`/Matches/${item.id}`} params={{ id: item.id }}>
+                    <Link
+                      to={`/Matches/${item.id}`}
+                      params={{ id: item.id }}
+                      className={classes.myLink}
+                    >
                       {item.name}
                     </Link>
                   </TableCell>
-                  <TableCell align="right">
-                    {item.currentSeason
-                      ? item.currentSeason.startDate
-                      : "------------------"}
+                  <TableCell align="left">
+                    <Image
+                      className={classes.centered}
+                      src={item.area.ensignUrl}
+                      srcOnError={"/images/question.svg"}
+                      width="30px"
+                      heght="30px"
+                      alt="country flag"
+                    />
+                    {item.area.name}
                   </TableCell>
                   <TableCell align="right">
                     {item.currentSeason
