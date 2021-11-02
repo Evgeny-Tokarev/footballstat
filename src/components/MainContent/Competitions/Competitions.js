@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 import Image from "../Image";
 
 function Competitions(props) {
-  console.log(Math.random(5));
+  console.log("Начало компонента");
   const useStyles = makeStyles({
     table: {
       minWidth: 650,
@@ -41,7 +41,7 @@ function Competitions(props) {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    console.log("effect 1");
+    console.log("effect 1  []");
     fetch(`http://api.football-data.org/v2/areas`, {
       method: "GET",
       mode: "cors",
@@ -50,7 +50,7 @@ function Competitions(props) {
       },
     })
       .then((res) => {
-        console.log(res);
+        console.log("api ответ 1 + res: " + res.status);
         setStatus(res.status);
         return res.json();
       })
@@ -72,14 +72,17 @@ function Competitions(props) {
             }
           )
             .then((res) => {
+              console.log("api ответ 2 + res : " + res.status);
               setStatus(res.status);
               return res.json();
             })
             .then(
               (result) => {
+                console.log();
                 setItems(result.competitions);
               },
               (error) => {
+                console.log("fetch 1 error : " + error);
                 setIsLoaded(true);
                 setError(error);
               }
@@ -87,17 +90,21 @@ function Competitions(props) {
           setIsLoaded(true);
         },
         (error) => {
+          console.log("fetch 2 error : " + error);
+
           setIsLoaded(true);
           setError(error);
         }
       );
   }, []);
+
   const refs = items.reduce((acc, value) => {
     acc[value.id] = React.createRef();
     return acc;
   }, {});
 
   useEffect(() => {
+    console.log("эффект 2 found, refs, items");
     if (found && found !== -1) {
       refs[items[found].id].current.scrollIntoView({
         block: "center",
@@ -106,7 +113,7 @@ function Competitions(props) {
     }
   }, [found, refs, items]);
   if (error) {
-    console.log("error 1");
+    console.log("error 1 : " + error);
     if (status === 429) return <div>Повторите позже</div>;
     return (
       <div>
@@ -114,11 +121,13 @@ function Competitions(props) {
       </div>
     );
   } else if (!isLoaded) {
+    console.log("загрузка");
     return <div>Загрузка...</div>;
   } else {
+    console.log("рендер");
+
     const names = items.map((item) => item.name);
     const now = new Date();
-    console.log(now);
     return (
       <div className={classes.block}>
         <Typography

@@ -8,9 +8,9 @@ function Navbar() {
 
       <Button href="/teams">Teams</Button>
 
-      <Button href="/matches">Matches</Button>
+      {/* <Button href="/matches">Matches</Button>
 
-      <Button href="/team">Team</Button>
+      <Button href="/team">Team</Button> */}
     </ButtonGroup>
   );
 }
