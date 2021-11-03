@@ -9,6 +9,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { Typography } from "@material-ui/core";
 import { useParams } from "react-router-dom";
+import BackToTopButton from "../BackToTopButton";
 
 const useStyles = makeStyles({
   table: {
@@ -43,10 +44,11 @@ function Matches(props) {
       })
       .then(
         (result) => {
-          console.log(result);
           if (result) {
             setItems(result.matches);
-            setCompetition(result.competition.name);
+            setCompetition(
+              result.competition.name + " " + result.competition.area.name
+            );
             setIsLoaded(true);
           } else {
             setIsLoaded(true);
@@ -82,6 +84,7 @@ function Matches(props) {
     } else
       return (
         <div className={classes.block}>
+          <BackToTopButton />
           <Typography
             variant="h4"
             component="h3"
@@ -99,16 +102,31 @@ function Matches(props) {
             >
               <TableHead>
                 <TableRow>
-                  <TableCell>Status</TableCell>
+                  <TableCell align="left">Date</TableCell>
+                  <TableCell align="center" colSpan={2}>
+                    Match
+                  </TableCell>
                   <TableCell align="right">Winner</TableCell>
+
                   <TableCell align="right">Score</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {items.map((item) => (
                   <TableRow key={item.id}>
-                    <TableCell component="th" scope="row">
-                      {item.status}
+                    <TableCell align="left" component="th" scope="row">
+                      {new Date(item.utcDate).toLocaleString("en-US", {
+                        year: "numeric",
+                        month: "2-digit",
+                        day: "numeric",
+                        timezone: "UTC",
+                      })}
+                    </TableCell>
+                    <TableCell align="left" component="th" scope="row">
+                      {item.homeTeam.name}
+                    </TableCell>
+                    <TableCell align="right" component="th" scope="row">
+                      {item.awayTeam.name}
                     </TableCell>
                     <TableCell align="right">
                       {item.status === "FINISHED"

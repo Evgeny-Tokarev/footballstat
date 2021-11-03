@@ -10,11 +10,16 @@ import Paper from "@material-ui/core/Paper";
 import { Typography } from "@material-ui/core";
 import { BrowserRouter as Link } from "react-router-dom";
 import Image from "../Image";
+import Search from "../Search";
+import BackToTopButton from "../BackToTopButton";
 
 function Teams() {
   const useStyles = makeStyles({
     table: {
       minWidth: 650,
+    },
+    grey: {
+      backgroundColor: "#e5e3e3",
     },
     block: {
       marginTop: "2rem",
@@ -23,6 +28,7 @@ function Teams() {
   const classes = useStyles();
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [found, setFound] = useState(null);
   const [items, setItems] = useState([]);
 
   useEffect(() => {
@@ -52,9 +58,16 @@ function Teams() {
             }
           )
             .then((res) => res.json())
-            .then((result) => {
-              setItems(result.teams);
-            });
+            .then(
+              (result) => {
+                setItems(result.teams);
+              },
+              (error) => {
+                setIsLoaded(true);
+                setError(error);
+              }
+            );
+          console.log("first setIsLoaded = true");
           setIsLoaded(true);
         },
         (error) => {
@@ -63,14 +76,29 @@ function Teams() {
         }
       );
   }, []);
-
+  const refs = items.reduce((acc, value) => {
+    acc[value.id] = React.createRef();
+    return acc;
+  }, {});
+  useEffect(() => {
+    console.log(refs);
+    if (found && found !== -1) {
+      refs[items[found].id].current.scrollIntoView({
+        block: "center",
+        behavior: "smooth",
+      });
+    }
+  }, [found, refs, items]);
   if (error) {
     return <div>Ошибка: {error.message}</div>;
   } else if (!isLoaded) {
     return <div>Загрузка...</div>;
   } else {
+    console.log("rendering...");
+    const names = items.map((item) => item.name);
     return (
       <div className={classes.block}>
+        <BackToTopButton />
         <Typography
           variant="h4"
           component="h3"
@@ -80,6 +108,7 @@ function Teams() {
         >
           Teams
         </Typography>
+        <Search names={names} findRow={setFound} />
         <TableContainer component={Paper}>
           <Table
             className={classes.table}
@@ -94,8 +123,12 @@ function Teams() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {items.map((item) => (
-                <TableRow key={item.id}>
+              {items.map((item, index) => (
+                <TableRow
+                  key={item.id}
+                  className={index === found ? classes.grey : ""}
+                  ref={refs[item.id]}
+                >
                   <TableCell component="th" scope="row">
                     <Link to={`/Team/${item.id}`} params={{ id: item.id }}>
                       {item.name}

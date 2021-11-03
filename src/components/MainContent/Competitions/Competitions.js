@@ -11,6 +11,7 @@ import Paper from "@material-ui/core/Paper";
 import { Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import Image from "../Image";
+import BackToTopButton from "../BackToTopButton";
 
 function Competitions(props) {
   console.log("Начало компонента");
@@ -57,8 +58,10 @@ function Competitions(props) {
       .then(
         (result) => {
           let europeAreas = result.areas.filter(
-            (area) => area.parentArea === "Europe"
+            (area) => area.parentArea === "Europe" || area.id === 2077
           );
+
+          console.log(europeAreas);
           fetch(
             `http://api.football-data.org/v2/competitions/?areas=${europeAreas
               .map((eArea) => eArea.id)
@@ -102,9 +105,8 @@ function Competitions(props) {
     acc[value.id] = React.createRef();
     return acc;
   }, {});
-
+  console.log(refs);
   useEffect(() => {
-    console.log("эффект 2 found, refs, items");
     if (found && found !== -1) {
       refs[items[found].id].current.scrollIntoView({
         block: "center",
@@ -114,7 +116,6 @@ function Competitions(props) {
   }, [found, refs, items]);
   if (error) {
     console.log("error 1 : " + error);
-    if (status === 429) return <div>Повторите позже</div>;
     return (
       <div>
         Ошибка: {error.message} {status}
@@ -130,6 +131,7 @@ function Competitions(props) {
     const now = new Date();
     return (
       <div className={classes.block}>
+        <BackToTopButton />
         <Typography
           variant="h4"
           component="h3"
@@ -150,7 +152,7 @@ function Competitions(props) {
               <TableRow>
                 <TableCell>Competition</TableCell>
                 <TableCell align="left">Country</TableCell>
-                <TableCell align="left">State</TableCell>
+                <TableCell align="center">Available in free plan</TableCell>
                 <TableCell align="right">Area</TableCell>
                 <TableCell align="right">Match day</TableCell>
               </TableRow>
@@ -183,10 +185,8 @@ function Competitions(props) {
                     />
                     {item.area.name}
                   </TableCell>
-                  <TableCell align="right">
-                    {item.currentSeason
-                      ? item.currentSeason.endDate
-                      : "------------------"}
+                  <TableCell align="center">
+                    {item.plan === "TIER_ONE" ? "+" : "-"}
                   </TableCell>
                   <TableCell align="right">{item.area.name}</TableCell>
                   <TableCell align="right">
