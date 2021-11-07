@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/styles";
 import Table from "@material-ui/core/Table";
 import Search from "../Search";
 import TableBody from "@material-ui/core/TableBody";
@@ -33,10 +33,19 @@ function Competitions(props) {
       textDecoration: "none",
       color: "#666",
     },
+    error: {
+      fontSize: "1.5rem",
+      fontWeight: "bold",
+      color: "#D15563 ",
+    },
+    message: {
+      fontSize: "1.5rem",
+      fontWeight: "bold",
+    },
   });
   const classes = useStyles();
   const [error, setError] = useState(null);
-  const [status, setStatus] = useState(null);
+
   const [found, setFound] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
@@ -51,8 +60,7 @@ function Competitions(props) {
       },
     })
       .then((res) => {
-        console.log("api ответ 1 + res: " + res.status);
-        setStatus(res.status);
+        console.log("api ответ 1 + res: " + res);
         return res.json();
       })
       .then(
@@ -75,8 +83,7 @@ function Competitions(props) {
             }
           )
             .then((res) => {
-              console.log("api ответ 2 + res : " + res.status);
-              setStatus(res.status);
+              console.log("api ответ 2 + res : " + res);
               return res.json();
             })
             .then(
@@ -115,20 +122,22 @@ function Competitions(props) {
     }
   }, [found, refs, items]);
   if (error) {
-    console.log("error 1 : " + error);
-    return (
-      <div>
-        Ошибка: {error.message} {status}
-      </div>
-    );
+    if (error.message === "Failed to fetch") {
+      return (
+        <div className={classes.error}>
+          Ошибка сервера, попробуйте повторить через минуту
+        </div>
+      );
+    } else {
+      return <div className={classes.error}>{error.message}</div>;
+    }
   } else if (!isLoaded) {
     console.log("загрузка");
-    return <div>Загрузка...</div>;
+    return <div className={classes.message}>Загрузка...</div>;
   } else {
     console.log("рендер");
 
     const names = items.map((item) => item.name);
-    const now = new Date();
     return (
       <div className={classes.block}>
         <BackToTopButton />

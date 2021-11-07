@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -10,6 +10,7 @@ import Paper from "@material-ui/core/Paper";
 import { Typography } from "@material-ui/core";
 import { useParams } from "react-router-dom";
 import BackToTopButton from "../BackToTopButton";
+import DateSearch from "../DateSearch";
 
 const useStyles = makeStyles({
   table: {
@@ -18,9 +19,19 @@ const useStyles = makeStyles({
   block: {
     marginTop: "2rem",
   },
+  error: {
+    fontSize: "1.5rem",
+    fontWeight: "bold",
+    color: "#D15563 ",
+  },
+  message: {
+    fontSize: "1.5rem",
+    fontWeight: "bold",
+  },
 });
 
 function Matches(props) {
+  console.log("начало компонента");
   let { id } = useParams();
   const classes = useStyles();
   const [error, setError] = useState(null);
@@ -28,6 +39,8 @@ function Matches(props) {
   const [items, setItems] = useState([]);
   const [competition, setCompetition] = useState([]);
   useEffect(() => {
+    console.log("начало эффекта");
+
     fetch(`http://api.football-data.org/v2/competitions/${id}/matches`, {
       method: "GET",
       mode: "cors",
@@ -37,6 +50,7 @@ function Matches(props) {
     })
       .then((res) => {
         if (res.status === 200) {
+          console.log("200");
           return res.json();
         } else {
           return null;
@@ -52,7 +66,6 @@ function Matches(props) {
             setIsLoaded(true);
           } else {
             setIsLoaded(true);
-            setCompetition(null);
           }
         },
         (error) => {
@@ -63,11 +76,20 @@ function Matches(props) {
   }, [id]);
 
   if (error) {
-    return <div>Ошибка: {error.message}</div>;
+    if (error.message === "Failed to fetch") {
+      return (
+        <div className={classes.error}>
+          Ошибка сервера, попробуйте повторить через минуту
+        </div>
+      );
+    } else {
+      return <div className={classes.error}>{error.message}</div>;
+    }
   } else if (!isLoaded) {
-    return <div>Загрузка...</div>;
+    console.log("Loading...");
+    return <div className={classes.message}>Загрузка...</div>;
   } else {
-    if (!competition) {
+    if (!competition.length) {
       return (
         <div className={classes.block}>
           <Typography
@@ -77,11 +99,13 @@ function Matches(props) {
             align="center"
             gutterBottom
           >
-            No matches
+            No matches available for this competition.
           </Typography>
         </div>
       );
-    } else
+    } else {
+      console.log("рендер     " + items.length);
+
       return (
         <div className={classes.block}>
           <BackToTopButton />
@@ -94,6 +118,7 @@ function Matches(props) {
           >
             {competition}
           </Typography>
+          <DateSearch setMatches={setItems} matches={items} />
           <TableContainer component={Paper}>
             <Table
               className={classes.table}
@@ -151,6 +176,7 @@ function Matches(props) {
           </TableContainer>
         </div>
       );
+    }
   }
 }
 export default Matches;

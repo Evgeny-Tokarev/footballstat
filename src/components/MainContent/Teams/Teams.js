@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -8,7 +8,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { Typography } from "@material-ui/core";
-import { BrowserRouter as Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Image from "../Image";
 import Search from "../Search";
 import BackToTopButton from "../BackToTopButton";
@@ -23,6 +23,19 @@ function Teams() {
     },
     block: {
       marginTop: "2rem",
+    },
+    myLink: {
+      textDecoration: "none",
+      color: "#666",
+    },
+    error: {
+      fontSize: "1.5rem",
+      fontWeight: "bold",
+      color: "#D15563 ",
+    },
+    message: {
+      fontSize: "1.5rem",
+      fontWeight: "bold",
     },
   });
   const classes = useStyles();
@@ -90,9 +103,17 @@ function Teams() {
     }
   }, [found, refs, items]);
   if (error) {
-    return <div>Ошибка: {error.message}</div>;
+    if (error.message === "Failed to fetch") {
+      return (
+        <div className={classes.error}>
+          Ошибка сервера, попробуйте повторить через минуту
+        </div>
+      );
+    } else {
+      return <div className={classes.error}>{error.message}</div>;
+    }
   } else if (!isLoaded) {
-    return <div>Загрузка...</div>;
+    return <div className={classes.message}>Загрузка...</div>;
   } else {
     console.log("rendering...");
     const names = items.map((item) => item.name);
@@ -130,7 +151,11 @@ function Teams() {
                   ref={refs[item.id]}
                 >
                   <TableCell component="th" scope="row">
-                    <Link to={`/Team/${item.id}`} params={{ id: item.id }}>
+                    <Link
+                      to={`/Team/${item.id}`}
+                      params={{ id: item.id }}
+                      className={classes.myLink}
+                    >
                       {item.name}
                     </Link>
                   </TableCell>

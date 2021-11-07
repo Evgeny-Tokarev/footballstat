@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -9,12 +9,24 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { Typography } from "@material-ui/core";
 import { useParams } from "react-router-dom";
+import BackToTopButton from "../BackToTopButton";
+import DateSearch from "../DateSearch";
+
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
   },
   block: {
     marginTop: "2rem",
+  },
+  error: {
+    fontSize: "1.5rem",
+    fontWeight: "bold",
+    color: "#D15563 ",
+  },
+  message: {
+    fontSize: "1.5rem",
+    fontWeight: "bold",
   },
 });
 function Team() {
@@ -26,8 +38,9 @@ function Team() {
   const [team, setTeam] = useState({});
   let options = {
     year: "numeric",
-    month: "long",
-    day: "2-digit",
+    month: "2-digit",
+    day: "numeric",
+    timezone: "UTC",
   };
   useEffect(() => {
     fetch(`http://api.football-data.org/v2/teams/${id}`, {
@@ -83,9 +96,17 @@ function Team() {
   }, [id]);
 
   if (error) {
-    return <div>Ошибка: {error.message}</div>;
+    if (error.message === "Failed to fetch") {
+      return (
+        <div className={classes.error}>
+          Ошибка сервера, попробуйте повторить через минуту
+        </div>
+      );
+    } else {
+      return <div className={classes.error}>{error.message}</div>;
+    }
   } else if (!isLoaded) {
-    return <div>Загрузка...</div>;
+    return <div className={classes.message}>Загрузка...</div>;
   } else {
     if (!team) {
       return (
@@ -104,6 +125,7 @@ function Team() {
     } else
       return (
         <div className={classes.block}>
+          <BackToTopButton />
           <Typography
             variant="h4"
             component="h3"
@@ -113,6 +135,7 @@ function Team() {
           >
             {team.name}
           </Typography>
+          <DateSearch setMatches={setItems} matches={items} />
           <img width="50px" heght="50px" src={team.crestUrl} alt="Team crest" />
           <TableContainer component={Paper}>
             <Table
