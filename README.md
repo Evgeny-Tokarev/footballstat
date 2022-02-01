@@ -9,12 +9,12 @@ Clone the code: git clone https://github.com/Evgeny-Tokarev/footballstat
 
 Run: npm install
 
-In the root of project create .env file and copy the key from .env.example file.
-Then replace it's value by this free plan key
+In the root of project create .env file and copy the key name from .env.example file.
+Then replace it's value by this free plan key value
 
 b2dd0e14d46548faaeb560db1e55fc93
 
-or you can get your own key in  https://www.football-data.org/
+or you can get your own key from  https://www.football-data.org/
 
 Run: npm run start
 
