@@ -1,17 +1,21 @@
 # Training React project.
 This project was made as part of test challenge. It is my first own React project.
 The goal was to create app for football statistic rendering, based on public API:  https://www.football-data.org/
-But owing to lack of time it is not fully complete, and sometimes going wrong.
+But owing to lack of time it is not fully complete, and sometimes going wrong. I'll improve it in the future.
 
-##Getting Started with Create React App
+## To start app:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Clone the code: git clone https://github.com/Evgeny-Tokarev/footballstat
 
-## Available Scripts
+Run: npm install
 
-In the project directory, you can run:
+In the root of project create .env file and copy the key from .env.example file.
+Then replace it's value by this free plan key
 
-### `npm start`
+b2dd0e14d46548faaeb560db1e55fc93
 
-Runs the app in the development mode.\
+or you can get your own key in  https://www.football-data.org/
+
+Run: npm run start
+
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
