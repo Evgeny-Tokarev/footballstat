@@ -94,7 +94,7 @@ function Team() {
         }
       );
   }, [id]);
-
+  console.log("After use effect");
   if (error) {
     if (error.message === "Failed to fetch") {
       return (
@@ -122,7 +122,7 @@ function Team() {
           </Typography>
         </div>
       );
-    } else
+    } else if (items.length) {
       return (
         <div className={classes.block}>
           <BackToTopButton />
@@ -136,7 +136,7 @@ function Team() {
             {team.name}
           </Typography>
           <DateSearch setMatches={setItems} matches={items} />
-          <img width="50px" heght="50px" src={team.crestUrl} alt="Team crest" />
+          <img width="50" heght="50" src={team.crestUrl} alt="Team crest" />
           <TableContainer component={Paper}>
             <Table
               className={classes.table}
@@ -176,6 +176,21 @@ function Team() {
           </TableContainer>
         </div>
       );
+    } else {
+      return (
+        <div className={classes.block}>
+          <Typography
+            variant="h4"
+            component="h3"
+            color="textPrimary"
+            align="center"
+            gutterBottom
+          >
+            No team
+          </Typography>
+        </div>
+      );
+    }
   }
 }
 export default Team;

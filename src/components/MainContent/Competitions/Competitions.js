@@ -189,7 +189,7 @@ function Competitions(props) {
                       src={item.area.ensignUrl}
                       srcOnError={"/images/question.svg"}
                       width="30px"
-                      heght="30px"
+                      height="30px"
                       alt="country flag"
                     />
                     {item.area.name}
