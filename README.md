@@ -2,6 +2,7 @@
 This project was made as part of test challenge. It is my first own React project.
 The goal was to create app for football statistic rendering, based on public API:  https://www.football-data.org/
 But owing to lack of time it is not fully complete, and sometimes going wrong. I'll improve it in the future.
+https://fervent-payne-dfc2df.netlify.app/
 
 ## To start app:
 
