@@ -50,7 +50,6 @@ function Competitions(props) {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    console.log("effect 1  []");
     fetch(`http://api.football-data.org/v2/areas`, {
       method: "GET",
       mode: "cors",
@@ -82,7 +81,6 @@ function Competitions(props) {
             }
           )
             .then((res) => {
-              console.log("api ответ 2 + res : " + res);
               return res.json();
             })
             .then(
