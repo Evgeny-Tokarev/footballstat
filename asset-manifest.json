@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/Evgeny-Tokarev/footballstat/static/css/main.d20ba51d.chunk.css",
-    "main.js": "/Evgeny-Tokarev/footballstat/static/js/main.acde025d.chunk.js",
-    "main.js.map": "/Evgeny-Tokarev/footballstat/static/js/main.acde025d.chunk.js.map",
-    "runtime-main.js": "/Evgeny-Tokarev/footballstat/static/js/runtime-main.934005c3.js",
-    "runtime-main.js.map": "/Evgeny-Tokarev/footballstat/static/js/runtime-main.934005c3.js.map",
-    "static/js/2.089dd613.chunk.js": "/Evgeny-Tokarev/footballstat/static/js/2.089dd613.chunk.js",
-    "static/js/2.089dd613.chunk.js.map": "/Evgeny-Tokarev/footballstat/static/js/2.089dd613.chunk.js.map",
-    "index.html": "/Evgeny-Tokarev/footballstat/index.html",
-    "static/css/main.d20ba51d.chunk.css.map": "/Evgeny-Tokarev/footballstat/static/css/main.d20ba51d.chunk.css.map",
-    "static/js/2.089dd613.chunk.js.LICENSE.txt": "/Evgeny-Tokarev/footballstat/static/js/2.089dd613.chunk.js.LICENSE.txt",
-    "static/media/App.css": "/Evgeny-Tokarev/footballstat/static/media/main-bg.7414ee34.jpg",
-    "static/media/search.552248cf.svg": "/Evgeny-Tokarev/footballstat/static/media/search.552248cf.svg"
+    "main.css": "/footballstat/static/css/main.588a683a.chunk.css",
+    "main.js": "/footballstat/static/js/main.f86bbf75.chunk.js",
+    "main.js.map": "/footballstat/static/js/main.f86bbf75.chunk.js.map",
+    "runtime-main.js": "/footballstat/static/js/runtime-main.a2efdf4f.js",
+    "runtime-main.js.map": "/footballstat/static/js/runtime-main.a2efdf4f.js.map",
+    "static/js/2.089dd613.chunk.js": "/footballstat/static/js/2.089dd613.chunk.js",
+    "static/js/2.089dd613.chunk.js.map": "/footballstat/static/js/2.089dd613.chunk.js.map",
+    "index.html": "/footballstat/index.html",
+    "static/css/main.588a683a.chunk.css.map": "/footballstat/static/css/main.588a683a.chunk.css.map",
+    "static/js/2.089dd613.chunk.js.LICENSE.txt": "/footballstat/static/js/2.089dd613.chunk.js.LICENSE.txt",
+    "static/media/App.css": "/footballstat/static/media/main-bg.7414ee34.jpg",
+    "static/media/search.552248cf.svg": "/footballstat/static/media/search.552248cf.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.934005c3.js",
+    "static/js/runtime-main.a2efdf4f.js",
     "static/js/2.089dd613.chunk.js",
-    "static/css/main.d20ba51d.chunk.css",
-    "static/js/main.acde025d.chunk.js"
+    "static/css/main.588a683a.chunk.css",
+    "static/js/main.f86bbf75.chunk.js"
   ]
 }
