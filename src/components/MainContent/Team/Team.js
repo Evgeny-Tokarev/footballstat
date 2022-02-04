@@ -43,7 +43,7 @@ function Team() {
     timezone: "UTC",
   };
   useEffect(() => {
-    fetch(`http://api.football-data.org/v2/teams/${id}`, {
+    fetch(`https://api.football-data.org/v2/teams/${id}`, {
       method: "GET",
       mode: "cors",
       headers: {
@@ -62,7 +62,7 @@ function Team() {
           console.log(result);
           if (result) {
             setTeam({ name: result.name, crestUrl: result.crestUrl });
-            fetch(`http://api.football-data.org/v2/teams/${id}/matches`, {
+            fetch(`https://api.football-data.org/v2/teams/${id}/matches`, {
               method: "GET",
               mode: "cors",
               headers: {

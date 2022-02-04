@@ -41,7 +41,7 @@ function Matches(props) {
   useEffect(() => {
     console.log("начало эффекта");
 
-    fetch(`http://api.football-data.org/v2/competitions/${id}/matches`, {
+    fetch(`https://api.football-data.org/v2/competitions/${id}/matches`, {
       method: "GET",
       mode: "cors",
       headers: {

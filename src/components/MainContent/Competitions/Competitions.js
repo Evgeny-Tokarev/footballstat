@@ -50,7 +50,7 @@ function Competitions(props) {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    fetch(`http://api.football-data.org/v2/areas`, {
+    fetch(`https://api.football-data.org/v2/areas`, {
       method: "GET",
       mode: "cors",
       headers: {
@@ -69,7 +69,7 @@ function Competitions(props) {
 
           console.log(europeAreas);
           fetch(
-            `http://api.football-data.org/v2/competitions/?areas=${europeAreas
+            `https://api.football-data.org/v2/competitions/?areas=${europeAreas
               .map((eArea) => eArea.id)
               .join(",")}`,
             {
