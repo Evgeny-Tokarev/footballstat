@@ -14,7 +14,6 @@ import Image from "../Image";
 import BackToTopButton from "../BackToTopButton";
 
 function Competitions(props) {
-  console.log("Начало компонента");
   const useStyles = makeStyles({
     table: {
       minWidth: 650,
@@ -132,11 +131,8 @@ function Competitions(props) {
       return <div className={classes.error}>{error.message}</div>;
     }
   } else if (!isLoaded) {
-    console.log("загрузка");
     return <div className={classes.message}>Загрузка...</div>;
   } else {
-    console.log("рендер");
-
     const names = items.map((item) => item.name);
     return (
       <div className={classes.block}>

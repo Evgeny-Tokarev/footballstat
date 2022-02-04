@@ -7,7 +7,7 @@ import { Container } from "@material-ui/core";
 
 function App() {
   return (
-    <Container>
+    <Container className="app-container">
       <Header />
       <MainContent />
       <Footer />

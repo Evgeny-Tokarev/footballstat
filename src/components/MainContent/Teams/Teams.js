@@ -80,7 +80,6 @@ function Teams() {
                 setError(error);
               }
             );
-          console.log("first setIsLoaded = true");
           setIsLoaded(true);
         },
         (error) => {
@@ -94,7 +93,6 @@ function Teams() {
     return acc;
   }, {});
   useEffect(() => {
-    console.log(refs);
     if (found && found !== -1) {
       refs[items[found].id].current.scrollIntoView({
         block: "center",
@@ -115,7 +113,6 @@ function Teams() {
   } else if (!isLoaded) {
     return <div className={classes.message}>Загрузка...</div>;
   } else {
-    console.log("rendering...");
     const names = items.map((item) => item.name);
     return (
       <div className={classes.block}>

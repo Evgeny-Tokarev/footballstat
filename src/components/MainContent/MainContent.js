@@ -9,7 +9,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 function MainContent(props) {
   return (
     <Router>
-      <div>
+      <div className="main">
         <Switch>
           <Route exact path="/">
             <Competitions />

@@ -3,7 +3,7 @@ import Navbar from "./Navbar/Navbar";
 import { Typography } from "@material-ui/core";
 function Header() {
   return (
-    <div>
+    <div className="header">
       <Typography
         variant="h3"
         component="h1"

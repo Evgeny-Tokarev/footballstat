@@ -16,7 +16,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const DateSearch = ({ matches, setMatches }) => {
-  console.log(matches.length);
   const classes = useStyles();
   const [startDate, setStartDate] = useState(
     new Date(parseISO(matches[0].utcDate))
@@ -42,7 +41,6 @@ const DateSearch = ({ matches, setMatches }) => {
   };
   const handleStartDateChange = (newValue) => {
     if (validateDate(newValue)) {
-      console.log("Ok");
       setStartDate(newValue);
       setMatches(
         matches.filter((match) => {
@@ -52,13 +50,10 @@ const DateSearch = ({ matches, setMatches }) => {
           );
         })
       );
-    } else {
-      console.log("No");
     }
   };
   const handleEndDateChange = (newValue) => {
     if (validateDate(newValue)) {
-      console.log("Ok");
       setEndDate(newValue);
       setMatches(
         matches.filter((match) => {
@@ -68,8 +63,6 @@ const DateSearch = ({ matches, setMatches }) => {
           );
         })
       );
-    } else {
-      console.log("No");
     }
   };
   return (
