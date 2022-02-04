@@ -4,9 +4,9 @@ import Team from "./Team/Team";
 import Teams from "./Teams/Teams";
 import Matches from "./Matches/Matches";
 import Competitions from "./Competitions/Competitions";
-import { HashRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-function MainContent(props) {
+function MainContent() {
   return (
     <Router>
       <div className="main">
