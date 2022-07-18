@@ -16,8 +16,6 @@ In the root of project create .env file and copy the key name from .env.example 
 Then replace it's value by this free plan key value. In free plan you have only 10 calls/minute to server. 
 In many cases it takes 2 queries to display the results table.
 
-There is app key hardcoded to the app in env.example file,
-
 or you can get your own key from  https://www.football-data.org/
 
 Run: npm run start
