@@ -1,10 +1,10 @@
 # Training React project.
 
-https://fervent-payne-dfc2df.netlify.app/
+https://football-stat.netlify.app
 
 This project was made as part of test challenge. It is my first own React project.
 The goal was to create app for football statistic rendering, based on public API:  https://www.football-data.org/
-But owing to lack of time it is not fully complete, and sometimes going wrong. I'll improve it in the future.
+But owing to lack of time it is not fully complete.
 
 ## To start app:
 
@@ -16,7 +16,7 @@ In the root of project create .env file and copy the key name from .env.example 
 Then replace it's value by this free plan key value. In free plan you have only 10 calls/minute to server. 
 In many cases it takes 2 queries to display the results table.
 
-b2dd0e14d46548faaeb560db1e55fc93
+There is app key hardcoded to the app in env.example file,
 
 or you can get your own key from  https://www.football-data.org/
 
